@@ -14,6 +14,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import GovEmblem from './GovEmblem';
+import bannerImg from '../assets/nirman-summit-banner.jpg';
 
 export default function NirmanSummitPoster({ handleNav }) {
   return (
@@ -44,13 +45,22 @@ export default function NirmanSummitPoster({ handleNav }) {
       }}>
         {/* Summit Banner Artwork */}
         <img 
-          src="/nirman-summit-banner.jpg" 
+          src={bannerImg} 
           alt="Nirman Innovation Summit 2026: From Startup to Public Procurement" 
+          onError={(e) => {
+            // Fallback to public asset path if bundled asset fails
+            const fallbackPath = `${import.meta.env.BASE_URL}nirman-summit-banner.jpg`;
+            if (e.currentTarget.src !== fallbackPath) {
+              e.currentTarget.src = fallbackPath;
+            }
+          }}
+          loading="eager"
+          decoding="async"
           style={{
             width: '100%',
             height: 'auto',
             display: 'block',
-            maxHeight: '480px',
+            aspectRatio: '1376 / 768',
             objectFit: 'cover',
             objectPosition: 'center'
           }}
